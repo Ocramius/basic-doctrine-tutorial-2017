@@ -1,0 +1,10 @@
+{
+    "require": {
+        "doctrine/orm": "^2.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Authentication": "src/"
+        }
+    }
+}
