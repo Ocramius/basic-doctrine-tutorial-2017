@@ -16,3 +16,12 @@ Specifically, following sections will be covered:
  6. Association mapping
  7. Lazy loading
 
+## Installation
+
+First, [install composer](https://getcomposer.org/download/).
+
+After that, you can run:
+
+```sh
+composer require doctrine/orm
+```
