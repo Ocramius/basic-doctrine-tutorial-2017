@@ -16,6 +16,17 @@ Specifically, following sections will be covered:
  6. Association mapping
  7. Lazy loading
 
+## The domain
+
+The logic inside this domain will represent a simple authentication
+layer. Specifically, we will cover:
+
+ * User management
+ * Authentication (login/logout)
+ * Logging successful login attempts
+ * Banning users
+ * Authorization (RBAC)
+
 ## Installation
 
 First, [install composer](https://getcomposer.org/download/).
