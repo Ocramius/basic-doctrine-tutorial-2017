@@ -1,9 +1,9 @@
 {
     "require": {
-        "doctrine/data-fixtures": "^1.1",
         "doctrine/orm": "^2.5",
         "ramsey/uuid": "^3.4",
-        "ramsey/uuid-doctrine": "^1.2"
+        "ramsey/uuid-doctrine": "^1.2",
+        "doctrine/migrations": "^1.4"
     },
     "autoload": {
         "psr-4": {
