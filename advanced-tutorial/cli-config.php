@@ -7,7 +7,10 @@ use Symfony\Component\Console\Helper\HelperSet;
 /* @var $entityManager \Doctrine\ORM\EntityManagerInterface */
 $entityManager = require __DIR__ . '/bootstrap.php';
 
+$connectionHelper = new ConnectionHelper($entityManager->getConnection());
+
 return new HelperSet([
     'em'         => new EntityManagerHelper($entityManager),
-    'connection' => new ConnectionHelper($entityManager->getConnection()),
+    'db'         => $connectionHelper,
+    'connection' => $connectionHelper,
 ]);
