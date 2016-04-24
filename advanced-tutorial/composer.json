@@ -10,5 +10,10 @@
             "Library\\":        "src/Library",
             "Enforcement\\":    "src/Enforcement"
         }
+    },
+    "config": {
+        "platform": {
+            "php": "5.5"
+        }
     }
 }
