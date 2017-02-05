@@ -1,10 +1,9 @@
 <?php
 
-use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\DBAL\Driver\PDOSqlite\Driver;
 use Doctrine\ORM\Configuration;
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
+use Doctrine\ORM\Mapping\Driver\XmlDriver;
 use Doctrine\ORM\Proxy\ProxyFactory;
 
 require_once __DIR__ . '/vendor/autoload.php';
@@ -12,10 +11,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 $configuration = new Configuration();
 
 // We use annotations for loading the entities in our system
-$configuration->setMetadataDriverImpl(new AnnotationDriver(
-    new AnnotationReader(),
-    [__DIR__ . '/src/Entity'] // this is where our entities are located
-));
+$configuration->setMetadataDriverImpl(new XmlDriver(__DIR__ . '/mapping'));
 
 // This is needed for Doctrine to generate files required for lazy-loading
 $configuration->setProxyDir(sys_get_temp_dir());
