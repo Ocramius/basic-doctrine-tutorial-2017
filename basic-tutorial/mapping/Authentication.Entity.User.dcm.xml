@@ -5,6 +5,7 @@
     xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd"
 >
     <entity name="Authentication\Entity\User" table="users">
+        <cache usage="NONSTRICT_READ_WRITE"/>
         <id name="emailAddress" type="UserEmail" column="email_address"/>
         <field name="passwordHash" type="string" column="password_hash"/>
     </entity>
