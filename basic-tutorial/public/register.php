@@ -2,13 +2,20 @@
 
 use Authentication\Entity\User;
 use Authentication\Repository\FileSystemUsers;
+use Doctrine\Common\Persistence\ObjectManager;
 
 require __DIR__ . '/../vendor/autoload.php';
+
+/* @var $entityManager ObjectManager */
+$entityManager = require __DIR__ . '/../bootstrap.php';
 
 $emailAddress = $_POST['emailAddress'];
 $clearTextPassword = $_POST['password'];
 
-$users = new FileSystemUsers();
+$users = new \Authentication\Repository\DoctrineUsers(
+    $entityManager->getRepository(User::class),
+    $entityManager
+);
 
 try {
     $registeredUser = User::register(
