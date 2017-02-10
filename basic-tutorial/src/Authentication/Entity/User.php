@@ -51,6 +51,11 @@ class User
         return $user;
     }
 
+    public function authenticate(string $clearTextPassword) : bool
+    {
+        return \password_verify($clearTextPassword, $this->passwordHash);
+    }
+
     public function emailAddress() : string
     {
         return $this->emailAddress;
