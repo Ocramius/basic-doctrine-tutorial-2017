@@ -1,5 +1,6 @@
 <?php
 
+use Authentication\UserEmailType;
 use Doctrine\DBAL\Driver\PDOSqlite\Driver;
 use Doctrine\ORM\Configuration;
 use Doctrine\ORM\EntityManager;
@@ -20,6 +21,8 @@ $configuration->setProxyNamespace('ProxyExample');
 // We are telling Doctrine to always generate files required for lazy-loading. This is a slow operation,
 // and shouldn't be done in a production environment.
 $configuration->setAutoGenerateProxyClasses(ProxyFactory::AUTOGENERATE_ALWAYS);
+
+Doctrine\DBAL\Types\Type::addType(UserEmailType::NAME, UserEmailType::class);
 
 // Finally creating the EntityManager: our entry point for the ORM
 return EntityManager::create(

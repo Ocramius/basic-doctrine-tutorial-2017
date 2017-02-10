@@ -3,6 +3,7 @@
 namespace Authentication\Repository;
 
 use Authentication\Entity\User;
+use Authentication\UserEmail;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\Persistence\ObjectRepository;
 
@@ -27,18 +28,18 @@ final class DoctrineUsers implements Users
         $this->objectManager = $objectManager;
     }
 
-    public function get(string $emailAddress) : User
+    public function get(UserEmail $emailAddress) : User
     {
         $user = $this->repository->find($emailAddress);
 
         if (! $user instanceof User) {
-            throw new \UnexpectedValueException(sprintf('Could not find user "%s"', $emailAddress));
+            throw new \UnexpectedValueException(sprintf('Could not find user "%s"', $emailAddress->toString()));
         }
 
         return $user;
     }
 
-    public function has(string $emailAddress) : bool
+    public function has(UserEmail $emailAddress) : bool
     {
         $user = $this->repository->find($emailAddress);
 

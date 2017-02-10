@@ -3,10 +3,11 @@
 namespace Authentication\Repository;
 
 use Authentication\Entity\User;
+use Authentication\UserEmail;
 
 final class FileSystemUsers implements Users
 {
-    public function get(string $emailAddress) : User
+    public function get(UserEmail $emailAddress) : User
     {
         $user = $this->fetchFromDb($emailAddress);
 
@@ -17,7 +18,7 @@ final class FileSystemUsers implements Users
         return $user;
     }
 
-    public function has(string $emailAddress) : bool
+    public function has(UserEmail $emailAddress) : bool
     {
         $user = $this->fetchFromDb($emailAddress);
 
@@ -29,7 +30,7 @@ final class FileSystemUsers implements Users
         file_put_contents($this->filePath($user->emailAddress()), serialize($user));
     }
 
-    private function fetchFromDb(string $emailAddress)
+    private function fetchFromDb(UserEmail $emailAddress)
     {
         $path = $this->filePath($emailAddress);
 
@@ -40,8 +41,8 @@ final class FileSystemUsers implements Users
         return unserialize(file_get_contents($path));
     }
 
-    private function filePath(string $emailAddress) : string
+    private function filePath(UserEmail $emailAddress) : string
     {
-        return __DIR__ . '/../../../data/user-' . $emailAddress;
+        return __DIR__ . '/../../../data/user-' . $emailAddress->toString();
     }
 }

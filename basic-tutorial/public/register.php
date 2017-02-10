@@ -1,7 +1,10 @@
 <?php
 
+use Authentication\ClearTextPassword;
 use Authentication\Entity\User;
+use Authentication\Repository\DoctrineUsers;
 use Authentication\Repository\FileSystemUsers;
+use Authentication\UserEmail;
 use Doctrine\Common\Persistence\ObjectManager;
 
 require __DIR__ . '/../vendor/autoload.php';
@@ -9,10 +12,9 @@ require __DIR__ . '/../vendor/autoload.php';
 /* @var $entityManager ObjectManager */
 $entityManager = require __DIR__ . '/../bootstrap.php';
 
-$emailAddress = $_POST['emailAddress'];
-$clearTextPassword = $_POST['password'];
+$emailAddress = UserEmail::fromString($_POST['emailAddress']);
 
-$users = new \Authentication\Repository\DoctrineUsers(
+$users = new DoctrineUsers(
     $entityManager->getRepository(User::class),
     $entityManager
 );
@@ -21,7 +23,7 @@ try {
     $registeredUser = User::register(
         $users,
         $emailAddress,
-        $clearTextPassword
+        ClearTextPassword::fromString($_POST['password'])
     );
     $users->add($registeredUser);
 } catch (\LogicException $alreadyExistingUser) {

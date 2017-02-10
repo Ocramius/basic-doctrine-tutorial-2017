@@ -2,12 +2,14 @@
 
 namespace Authentication\Entity;
 
+use Authentication\ClearTextPassword;
 use Authentication\Repository\Users;
+use Authentication\UserEmail;
 
 class User
 {
     /**
-     * @var string
+     * @var UserEmail
      */
     private $emailAddress;
 
@@ -23,14 +25,15 @@ class User
     /**
      * @param Users  $existingUsers
      * @param string $emailAddress
+     * @param ClearTextPassword $clearTextPassword
      *
      * @return User
      * @throws \LogicException
      */
     public static function register(
         Users $existingUsers,
-        string $emailAddress,
-        string $clearTextPassword
+        UserEmail $emailAddress,
+        ClearTextPassword $clearTextPassword
     ) : self
     {
         if ($existingUsers->has($emailAddress)) {
@@ -42,21 +45,21 @@ class User
 
         $user = new self();
 
-        $user->emailAddress = $emailAddress;
+        $user->emailAddress = $emailAddress->toString();
         $user->passwordHash = password_hash(
-            $clearTextPassword,
+            $clearTextPassword->toString(),
             \PASSWORD_DEFAULT
         );
 
         return $user;
     }
 
-    public function authenticate(string $clearTextPassword) : bool
+    public function authenticate(ClearTextPassword $clearTextPassword) : bool
     {
-        return \password_verify($clearTextPassword, $this->passwordHash);
+        return \password_verify($clearTextPassword->toString(), $this->passwordHash);
     }
 
-    public function emailAddress() : string
+    public function emailAddress() : UserEmail
     {
         return $this->emailAddress;
     }
