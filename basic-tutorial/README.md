@@ -1,4 +1,4 @@
-# Basic tutorial Doctrine ORM tutorial
+# Basic Doctrine ORM tutorial
 
 This tutorial will introduce you to using Doctrine ORM.
 
