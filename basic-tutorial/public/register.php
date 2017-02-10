@@ -1,11 +1,26 @@
 <?php
 
-// registering a new user:
+use Authentication\Entity\User;
+use Authentication\Repository\FileSystemUsers;
 
-// 1. check if a user with the same email address exists
-// 2. if not, create a user
-// 3. hash the password
-// 4. send the email to confirm activation (we will just display it)
-// 5. save the user
+require __DIR__ . '/../vendor/autoload.php';
 
-// Tip: discuss - email or saving? Chicken-egg problem
+$emailAddress = $_POST['emailAddress'];
+$clearTextPassword = $_POST['password'];
+
+$users = new FileSystemUsers();
+
+try {
+    $registeredUser = User::register(
+        $users,
+        $emailAddress,
+        $clearTextPassword
+    );
+    $users->add($registeredUser);
+} catch (\LogicException $alreadyExistingUser) {
+    echo sprintf('User "%s" is already registered', htmlentities($emailAddress));
+
+    return;
+}
+
+echo 'Correctly registered!';
