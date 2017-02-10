@@ -32,17 +32,3 @@ After that, you can run:
 ```sh
 composer require doctrine/orm
 ```
-
-We now need to set up autoloading for our entities. We will
-assume that all our classes will live under `src`, and the
-namespace for them will be `Authentication`:
-
-```json
-{
-    "autoload": {
-        "psr-4": {
-            "Authentication": "src"
-        }
-    }
-}
-```
