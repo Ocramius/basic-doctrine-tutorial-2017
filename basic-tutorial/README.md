@@ -19,13 +19,9 @@ Specifically, following sections will be covered:
 ## The domain
 
 The logic inside this domain will represent a simple authentication
-layer. Specifically, we will cover:
+layer, as well as a simple blog-post/blog-post commenting platform.
 
- * User management
- * Authentication (login/logout)
- * Logging successful login attempts
- * Banning users
- * Authorization (RBAC)
+See the [feature](feature) directory for requirements.
 
 ## Installation
 
