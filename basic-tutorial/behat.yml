@@ -1,0 +1,7 @@
+default:
+  suites:
+    authentication:
+      contexts:
+        - AuthenticationAcceptance\FrontendAuthenticationContext
+      paths:
+        - feature/authentication.feature

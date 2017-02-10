@@ -24,7 +24,7 @@ class User
 
     /**
      * @param Users  $existingUsers
-     * @param string $emailAddress
+     * @param UserEmail $emailAddress
      * @param ClearTextPassword $clearTextPassword
      *
      * @return User
@@ -45,7 +45,7 @@ class User
 
         $user = new self();
 
-        $user->emailAddress = $emailAddress->toString();
+        $user->emailAddress = $emailAddress;
         $user->passwordHash = password_hash(
             $clearTextPassword->toString(),
             \PASSWORD_DEFAULT
