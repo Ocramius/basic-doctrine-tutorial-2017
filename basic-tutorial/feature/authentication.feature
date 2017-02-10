@@ -9,7 +9,7 @@ Feature: A user can log in and logout
     Given there is a registered user
     Then the user can log into the website
 
-  Scenario: A user can log into the website
+  Scenario: A user cannot log into the website
     Given there is a registered user
     Then the user cannot log into the website with a non-matching password
 
