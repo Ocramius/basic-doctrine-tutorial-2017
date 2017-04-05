@@ -1,5 +1,22 @@
 <?php
 
+require_once __DIR__ . '/../vendor/autoload.php';
+
+$users = new \Authentication\Repository\FileSystemUsers(__DIR__ . '/../data');
+
+$user = \Authentication\Entity\User::register(
+    $_POST['emailAddress'],
+    $_POST['password'],
+    function (string $password) : string {
+        return \password_hash($password, \PASSWORD_DEFAULT);
+    },
+    $users
+);
+
+$users->store($user);
+
+echo "OK";
+
 // registering a new user:
 
 // 1. check if a user with the same email address exists

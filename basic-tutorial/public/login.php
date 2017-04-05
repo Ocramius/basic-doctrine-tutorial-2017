@@ -1,5 +1,30 @@
 <?php
 
+require_once __DIR__ . '/../vendor/autoload.php';
+
+$users = new \Authentication\Repository\FileSystemUsers(__DIR__ . '/../data');
+
+try {
+    $user = $users->get($_POST['emailAddress']);
+} catch (\Authentication\Repository\Exception\UserNotFound $notFound) {
+    echo "KO";
+
+    return;
+}
+
+if ($user->authenticate(
+    $_POST['password'],
+    function (string $password, string $hash) : bool {
+        return password_verify($password, $hash);
+    }
+)) {
+    echo "OK";
+
+    return;
+}
+
+echo "KO";
+
 // 1. fetch user by email
 // 2. compare user password hash against given password
 // 3. is the user banned? (optional)
