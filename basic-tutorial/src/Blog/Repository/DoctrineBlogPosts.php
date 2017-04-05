@@ -18,20 +18,20 @@ final class DoctrineBlogPosts implements BlogPosts
     /**
      * @var ObjectRepository
      */
-    private $users;
+    private $blogPosts;
 
     public function __construct(
         ObjectManager $objectManager,
         ObjectRepository $users
     ) {
         $this->objectManager = $objectManager;
-        $this->users         = $users;
+        $this->blogPosts     = $users;
     }
 
     public function get(string $id) : BlogPost
     {
 
-        $blogPost = $this->users->find($id);
+        $blogPost = $this->blogPosts->find($id);
 
         if (! $blogPost instanceof BlogPost) {
             throw new \UnexpectedValueException(sprintf('Could not find blogpost "%s"', $id));

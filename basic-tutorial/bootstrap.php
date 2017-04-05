@@ -21,6 +21,20 @@ $configuration->setProxyNamespace('ProxyExample');
 // and shouldn't be done in a production environment.
 $configuration->setAutoGenerateProxyClasses(ProxyFactory::AUTOGENERATE_ALWAYS);
 
+$configuration->setSecondLevelCacheEnabled(true);
+
+$cacheConfig = $configuration->getSecondLevelCacheConfiguration();
+
+$cacheConfig->setCacheFactory(new \Doctrine\ORM\Cache\DefaultCacheFactory(
+    new \Doctrine\ORM\Cache\RegionsConfiguration(),
+    new \Doctrine\Common\Cache\FilesystemCache(__DIR__ . '/data/cache')
+));
+
+$cacheLogger = new \Doctrine\ORM\Cache\Logging\StatisticsCacheLogger();
+$cacheConfig->setCacheLogger($cacheLogger);
+
+$configuration->setSQLLogger(new \Doctrine\DBAL\Logging\EchoSQLLogger());
+
 // Finally creating the EntityManager: our entry point for the ORM
 return EntityManager::create(
     [

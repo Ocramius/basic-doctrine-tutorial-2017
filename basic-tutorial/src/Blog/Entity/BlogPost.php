@@ -3,6 +3,8 @@
 namespace Blog\Entity;
 
 use Authentication\Entity\User;
+use Blog\Entity\BlogPost\Comment;
+use Doctrine\Common\Collections\ArrayCollection;
 
 class BlogPost
 {
@@ -26,6 +28,11 @@ class BlogPost
      */
     private $author;
 
+    /**
+     * @var Comment[]
+     */
+    private $comments;
+
     private function __construct(
         string $id,
         string $title,
@@ -37,6 +44,7 @@ class BlogPost
         $this->title  = $title;
         $this->text   = $text;
         $this->author = $author;
+        $this->comments = new ArrayCollection();
     }
 
     public static function publish(
@@ -47,6 +55,13 @@ class BlogPost
     ) : self
     {
         return new self($id, $title, $text, $author);
+    }
+
+    public function publishComment(
+        string $comment,
+        User $author
+    ) : void {
+        $this->comments->add(Comment::create($comment, $author, $this));
     }
 
     public function getTitle() : string
@@ -62,5 +77,10 @@ class BlogPost
     public function getAuthor() : User
     {
         return $this->author;
+    }
+
+    public function getComments() : array
+    {
+        return $this->comments->toArray();
     }
 }
