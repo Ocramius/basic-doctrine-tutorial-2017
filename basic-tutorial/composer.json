@@ -5,7 +5,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Authentication\\": "src/Authentication"
+            "Authentication\\": "src/Authentication",
+            "Blog\\": "src/Blog"
         }
     },
     "require-dev": {

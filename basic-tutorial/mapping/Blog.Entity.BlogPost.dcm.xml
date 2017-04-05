@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping
+    xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd"
+>
+    <entity name="Blog\Entity\BlogPost" table="blog_posts">
+        <id name="id" type="string"/>
+        <field name="title" type="string" nullable="false"/>
+        <field name="text" type="text" nullable="false"/>
+        <!-- bug - DAMMIT. of course during live demo. -->
+        <many-to-one target-entity="Authentication\Entity\User" field="author">
+            <join-column name="author_id" referenced-column-name="emailAddress" nullable="false"/>
+        </many-to-one>
+    </entity>
+</doctrine-mapping>
