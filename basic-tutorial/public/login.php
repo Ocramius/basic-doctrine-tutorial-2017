@@ -2,7 +2,13 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$users = new \Authentication\Repository\FileSystemUsers(__DIR__ . '/../data');
+/* @var $entityManager \Doctrine\ORM\EntityManager */
+$entityManager = require __DIR__ . '/../bootstrap.php';
+
+$users = new \Authentication\Repository\DoctrineUsers(
+    $entityManager,
+    $entityManager->getRepository(\Authentication\Entity\User::class)
+);
 
 try {
     $user = $users->get($_POST['emailAddress']);

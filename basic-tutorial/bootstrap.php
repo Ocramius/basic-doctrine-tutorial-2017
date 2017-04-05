@@ -14,7 +14,7 @@ $configuration = new Configuration();
 $configuration->setMetadataDriverImpl(new XmlDriver(__DIR__ . '/mapping'));
 
 // This is needed for Doctrine to generate files required for lazy-loading
-$configuration->setProxyDir(sys_get_temp_dir());
+$configuration->setProxyDir(__DIR__ . '/data/proxies');
 $configuration->setProxyNamespace('ProxyExample');
 
 // We are telling Doctrine to always generate files required for lazy-loading. This is a slow operation,
